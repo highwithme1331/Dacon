@@ -1,14 +1,12 @@
 #LightGBM
 from lightgbm import LGBMClassifier
+from lightgbm.callback import early_stopping, log_evaluation
 
 target = train['target']
 independent = train.drop(['index', 'target'], axis=1)
 
 object_cols = [col for col in independent.columns if independent[col].dtype=='object']
 independent[object_cols] = independent[object_cols].astype('category')
-
-
-from lightgbm.callback import early_stopping, log_evaluation
 
 tuning_lgbm = LGBMClassifier(n_estimators=300, max_depth=6, random_state=42)
 

@@ -7,12 +7,10 @@ best_weights = None
 best_score = float('inf')
 
 for weights in product(weights_range, repeat=3):
-    if sum(weights)! = 1:
-        continue  
+    if sum(weights) != 1:
+        continue
     
-    weighted_avg_preds = (
-        weights[0]*rf_preds+weights[1]*gb_preds +weights[2]*et_preds
-    )
+    weighted_avg_preds = (weights[0]*rf_preds+weights[1]*gb_preds+weights[2]*et_preds)
     weighted_avg_score = root_mean_squared_error(y_valid, weighted_avg_preds)
 
     if weighted_avg_score < best_score:
@@ -21,16 +19,17 @@ for weights in product(weights_range, repeat=3):
 
 
 
-#검증점수 가중치 계산
+#검증점수 가중치
 rf_score = root_mean_squared_error(y_valid, rf_preds)
 gb_score = root_mean_squared_error(y_valid, gb_preds)
 et_score = root_mean_squared_error(y_valid, et_preds)
 
-rf_weight = 1 / rf_score
-gb_weight = 1 / gb_score
-et_weight = 1 / et_score
+rf_weight = 1/rf_score
+gb_weight = 1/gb_score
+et_weight = 1/et_score
 
-total_weight = rf_weight + gb_weight + et_weight
+total_weight = rf_weight+gb_weight+et_weight
+
 rf_weight /= total_weight
 gb_weight /= total_weight
 et_weight /= total_weight
@@ -58,7 +57,7 @@ rmse_seed_val = root_mean_squared_error(y_valid, seed_pred)
 
 
 
-#KFold 모델 학습 및 평가
+#KFold Ensemble
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 models = []
@@ -79,7 +78,7 @@ for train_idx, valid_idx in kf.split(drop_train):
 
 
 
-#KFold Seed Ensemble
+#Seed KFold Ensemble
 seeds = [42, 77, 2024]
 
 all_scores = []

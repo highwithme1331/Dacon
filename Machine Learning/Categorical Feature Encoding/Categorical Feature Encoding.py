@@ -78,7 +78,10 @@ encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
 
 #Drop
 encoder = OneHotEncoder(sparse_output=False, drop='first', handle_unknown='ignore’)
-Binary Encoding
+
+
+
+#Binary Encoding
 import category_encoders as ce
 
 train['col'].fillna('Unknown', inplace=True)

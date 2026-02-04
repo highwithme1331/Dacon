@@ -34,10 +34,7 @@ lower_bound, upper_bound = out_iqr(train['col'])
 lower_outliers = train[train['col']<lower_bound]
 upper_outliers = train[train['col']>upper_bound]
 
-train_no_outliers_iqr = train[
-    (train['col']>=lower_bound) &
-    (train['col']<=upper_bound)
-]
+train_no_outliers_iqr = train[(train['col']>=lower_bound)&(train['col']<=upper_bound)]
 
 
 
@@ -49,17 +46,14 @@ IQR = Q3-Q1
 lower_bound = Q1-1.5*IQR
 upper_bound = Q3+1.5*IQR
 
-train_no_outliers_iqr_np = train[
-    (train[col]>=lower_bound) &
-    (train[col]<=upper_bound)
-]
+train_no_outliers_iqr_np = train[(train['col']>=lower_bound)&(train['col']<=upper_bound)]
 
 
 
 #DBSCAN
 from sklearn.cluster import DBSCAN
 
-numeric_columns = ['A', 'B', ‘C’]
+numeric_columns = ['A', 'B', 'C']
 data_numeric = train[numeric_columns]
 
 scaler = StandardScaler()
@@ -76,7 +70,7 @@ sample_no_outliers = train[train['clusters']!=-1]
 #LOF
 from sklearn.neighbors import LocalOutlierFactor
 
-numeric_columns = ['A', 'B', ‘C’]
+numeric_columns = ['A', 'B', 'C']
 data_numeric = train[numeric_columns]
 
 scaler = StandardScaler()

@@ -1,19 +1,15 @@
-#시계열 데이터 결측치 탐색 및 시각화
+#시계열 데이터 결측치 시각화
 train['date_time'] = pd.to_datetime(train['date_time'])
 train = train.set_index('date_time')
 
 plt.figure(figsize=(8, 6))
-ax = sns.heatmap(
-    train[['A', 'B', 'C']].isnull(), 
-    cbar=False, 
-    cmap='viridis’
-)
+
+ax = sns.heatmap(train[['A', 'B', 'C']].isnull())
 
 
 
 #시계열 데이터 결측치 처리
 df['A_Interpolated'] = df['A'].interpolate(method='linear')
-
 df['A_Fill'] = df['A'].bfill()
 
 
@@ -37,7 +33,7 @@ daily_data[sma_col] = daily_data['target'].rolling(window=num_window).mean()
 
 
 
-#지수 평균 이동을 사용한 시계열 데이터의 평활화
+#지수 평균 이동을 사용한 시계열 데이터 평활화
 num_window = 20
 ema_col = f"EMA{num_window}"
 

@@ -38,8 +38,6 @@ plt.show()
 
 
 #PCA elbow
-from sklearn.decomposition import PCA
-
 pca = PCA()
 
 pca.fit(scaled_train)

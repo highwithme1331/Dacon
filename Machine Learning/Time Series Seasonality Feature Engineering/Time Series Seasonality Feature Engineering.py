@@ -20,8 +20,6 @@ result = stl.fit()
 
 
 #STL Feature
-from statsmodels.tsa.seasonal import STL
-
 def generate_stl_features(data, window_size, target_col='col'):
     trend_values = []
     seasonal_values = []
@@ -44,19 +42,8 @@ def generate_stl_features(data, window_size, target_col='col'):
     return result_df
 
 
-from statsmodels.tsa.seasonal import STL
-
-data_test_extended = pd.concat(
-    [data_train.tail(window_size), data_test], 
-    ignore_index=True
-)
-
-data_test_stl_extended = generate_stl_features(
-    data_test_extended, 
-    window_size=window_size, 
-    target_col='colr’
-)
-
+data_test_extended = pd.concat([data_train.tail(window_size), data_test], ignore_index=True)
+data_test_stl_extended = generate_stl_features(data_test_extended, window_size=window_size, target_col='col’)
 data_test_stl = data_test_stl_extended.reset_index(drop=True)
 
 
@@ -88,12 +75,10 @@ import numpy as np
 
 fft_result = fft(df_signal['final_signal'].values)
 fft_freq = fftfreq(len(df_signal), d=1/sampling_freq)
-
 fft_magnitude = np.abs(fft_result)
 
 
 filtered_fft_result = np.zeros_like(fft_result)
 mask = fft_magnitude>threshold
 filtered_fft_result[mask] = fft_result[mask]
-
 reconstructed_signal = np.real(np.fft.ifft(filtered_fft_result))

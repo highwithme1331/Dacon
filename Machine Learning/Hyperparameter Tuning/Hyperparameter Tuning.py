@@ -27,9 +27,7 @@ scores_list = []
 
 for alpha in alpha_list:
     ridge_model = Ridge(alpha=alpha)
-    scores = cross_val_score(
-        ridge_model, X_train, y_train, scoring='neg_mean_squared_error', cv=kf
-    )
+    scores = cross_val_score(ridge_model, X_train, y_train, scoring='neg_mean_squared_error', cv=kf)
     scores_list.append(np.mean(scores))
 
 best_score = max(scores_list)
